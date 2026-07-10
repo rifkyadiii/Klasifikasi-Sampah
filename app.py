@@ -211,26 +211,6 @@ st.markdown("""
     .app-footer p { margin: 0.15rem 0; }
 
     /* ==========================================================
-       Fallback tambahan untuk browser yang tidak meneruskan
-       variabel tema Streamlit (mis. karena versi lama).
-       Menyesuaikan berdasarkan preferensi sistem OS pengguna.
-       ========================================================== */
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --app-card-bg: #262626;
-            --app-card-text: #f0f2f6;
-            --app-muted-text: #c9c9c9;
-            --app-shadow: rgba(0, 0, 0, 0.35);
-        }
-        .stApp {
-            background: #0e1117;
-        }
-        section[data-testid="stSidebar"] {
-            background: #0e1117;
-        }
-    }
-
-    /* ==========================================================
        Optimasi tampilan Mobile
        ========================================================== */
     @media (max-width: 768px) {
@@ -549,7 +529,7 @@ def add_to_history(image_data, predicted_class, confidence, results, source_labe
 
 def run_prediction_flow(model, image, source_label):
     """Jalankan alur analisis untuk sebuah gambar dan tampilkan hasilnya"""
-    if st.button(f"🔍 Analisis Gambar", type="primary", key=f"analisis_{source_label}"):
+    if st.button(f"🔍 Analisis Gambar ({source_label})", type="primary", key=f"analisis_{source_label}"):
         with st.spinner("Menganalisis gambar..."):
             predicted_class, results = predict_garbage_class(model, image)
 
