@@ -3,5 +3,6 @@ pandas==1.5.3
 Pillow==9.5.0
 plotly==5.18.0
 streamlit==1.26.0
-tensorflow==2.19.0
+tensorflow==2.18.0
+keras==3.8.0
 opencv-python-headless==4.7.0.72

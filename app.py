@@ -12,7 +12,7 @@ from datetime import datetime
 
 # Konfigurasi halaman
 st.set_page_config(
-    page_title="AI Klasifikasi Sampah",
+    page_title="Klasifikasi Sampah Deep Learning",
     page_icon="♻️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -328,7 +328,7 @@ def main():
     # Header
     st.markdown("""
     <div class="main-header">
-        <h1>Sistem Klasifikasi Sampah AI</h1>
+        <h1>Sistem Klasifikasi Sampah Deep Learning</h1>
         <p>Unggah gambar untuk mengklasifikasikan jenis sampah dan dapatkan rekomendasi daur ulang</p>
     </div>
     """, unsafe_allow_html=True)
