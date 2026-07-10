@@ -125,7 +125,7 @@ Model yang telah dilatih (`best_model.keras`) akan di-deploy sebagai aplikasi we
 
 Aplikasi Streamlit ini dapat diakses secara publik melalui tautan berikut:
 
-[**Tautan Aplikasi Streamlit**](https://klasifikasi-sampah-ml.streamlit.app/)
+[**Tautan Aplikasi Streamlit**](https://klasifikasi-sampah-xception.streamlit.app/)
 
 ## Kesimpulan
 
