@@ -21,13 +21,29 @@ st.set_page_config(
 )
 
 # ==========================================================
-# CSS kustom — tampilan lebih modern
+# CSS kustom — tampilan lebih modern (kompatibel light & dark mode)
 # ==========================================================
 st.markdown("""
 <style>
+    /* ==========================================================
+       Variabel warna adaptif
+       Streamlit menyuntikkan variabel tema berikut secara otomatis:
+       --primary-color, --background-color,
+       --secondary-background-color, --text-color, --font
+       Kita gunakan sebagai basis, dengan fallback untuk browser lama,
+       lalu tambahkan penyesuaian lanjutan lewat prefers-color-scheme.
+       ========================================================== */
+    :root {
+        --app-card-bg: var(--secondary-background-color, #ffffff);
+        --app-card-text: var(--text-color, #262626);
+        --app-muted-text: var(--text-color, #4b4b4b);
+        --app-border-soft: rgba(128, 128, 128, 0.25);
+        --app-shadow: rgba(0, 0, 0, 0.08);
+    }
+
     /* ---------- Global ---------- */
     .stApp {
-        background: linear-gradient(180deg, #f4f9f4 0%, #eef6f0 100%);
+        background: var(--background-color, #f4f9f4);
     }
 
     /* ---------- Header ---------- */
@@ -37,7 +53,7 @@ st.markdown("""
         border-radius: 20px;
         margin-bottom: 1.8rem;
         text-align: center;
-        color: white;
+        color: #ffffff;
         box-shadow: 0 8px 24px rgba(17, 153, 142, 0.35);
         position: relative;
         overflow: hidden;
@@ -47,19 +63,22 @@ st.markdown("""
         margin-bottom: 0.3rem;
         font-weight: 800;
         letter-spacing: -0.5px;
+        color: #ffffff;
     }
     .main-header p {
         font-size: 1rem;
         opacity: 0.95;
         margin: 0;
+        color: #ffffff;
     }
 
     /* ---------- Cards umum ---------- */
     .metric-card {
-        background: white;
+        background: var(--app-card-bg);
+        color: var(--app-card-text);
         padding: 1rem;
         border-radius: 14px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        box-shadow: 0 2px 10px var(--app-shadow);
         border-left: 4px solid #11998e;
     }
 
@@ -68,7 +87,7 @@ st.markdown("""
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         padding: 1.8rem;
         border-radius: 20px;
-        color: white;
+        color: #ffffff;
         text-align: center;
         margin: 1rem 0;
         box-shadow: 0 10px 25px rgba(118, 75, 162, 0.35);
@@ -77,10 +96,12 @@ st.markdown("""
     .prediction-result h2 {
         font-size: 1.9rem;
         margin: 0.2rem 0;
+        color: #ffffff;
     }
     .confidence-badge {
         display: inline-block;
         background: rgba(255,255,255,0.2);
+        color: #ffffff;
         padding: 0.35rem 1rem;
         border-radius: 999px;
         font-weight: 700;
@@ -96,7 +117,7 @@ st.markdown("""
     /* ---------- Tombol ---------- */
     .stButton > button {
         background: linear-gradient(90deg, #11998e, #38ef7d);
-        color: white;
+        color: #ffffff;
         border: none;
         border-radius: 12px;
         padding: 0.6rem 1.2rem;
@@ -107,6 +128,7 @@ st.markdown("""
     .stButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 16px rgba(17,153,142,0.4);
+        color: #ffffff;
     }
 
     /* ---------- Info & warning box ---------- */
@@ -115,41 +137,42 @@ st.markdown("""
         padding: 1.1rem;
         border-radius: 14px;
         margin: 1rem 0;
-        color: white;
+        color: #ffffff;
         box-shadow: 0 4px 12px rgba(17,153,142,0.25);
     }
     .warning-box {
-        background: #fff8e1;
+        background: var(--app-card-bg);
         padding: 1.1rem;
         border-radius: 14px;
         border-left: 5px solid #ffc107;
         margin: 1rem 0;
-        color: #6b4e00;
+        color: var(--app-card-text);
+        box-shadow: 0 2px 10px var(--app-shadow);
     }
 
     /* ---------- Tabs (Upload vs Kamera) ---------- */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background: white;
+        background: var(--app-card-bg);
         padding: 0.4rem;
         border-radius: 14px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        box-shadow: 0 2px 10px var(--app-shadow);
     }
     .stTabs [data-baseweb="tab"] {
         height: 46px;
         border-radius: 10px;
         padding: 0 1.2rem;
         font-weight: 600;
-        color: #2f4f4f;
+        color: var(--app-card-text);
     }
     .stTabs [aria-selected="true"] {
         background: linear-gradient(90deg, #11998e, #38ef7d) !important;
-        color: white !important;
+        color: #ffffff !important;
     }
 
     /* ---------- Sidebar ---------- */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #ffffff 0%, #f2f9f4 100%);
+        background: var(--background-color, #ffffff);
     }
     .sidebar-title {
         font-size: 1.15rem;
@@ -161,31 +184,51 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 0.6rem;
-        background: white;
+        background: var(--app-card-bg);
+        color: var(--app-card-text);
         padding: 0.55rem 0.8rem;
         border-radius: 10px;
         margin-bottom: 0.45rem;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        box-shadow: 0 1px 4px var(--app-shadow);
         border-left: 4px solid var(--chip-color, #11998e);
         font-size: 0.92rem;
         font-weight: 600;
-        color: #2f2f2f;
     }
 
     /* ---------- Upload area label ---------- */
     .section-title {
         font-weight: 800;
-        color: #1b5e20;
+        color: #11998e;
         margin-bottom: 0.4rem;
     }
 
     /* ---------- Footer ---------- */
     .app-footer {
         text-align: center;
-        color: #4b4b4b;
+        color: var(--app-muted-text);
         padding: 1.4rem 1rem 0.6rem 1rem;
     }
     .app-footer p { margin: 0.15rem 0; }
+
+    /* ==========================================================
+       Fallback tambahan untuk browser yang tidak meneruskan
+       variabel tema Streamlit (mis. karena versi lama).
+       Menyesuaikan berdasarkan preferensi sistem OS pengguna.
+       ========================================================== */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --app-card-bg: #262626;
+            --app-card-text: #f0f2f6;
+            --app-muted-text: #c9c9c9;
+            --app-shadow: rgba(0, 0, 0, 0.35);
+        }
+        .stApp {
+            background: #0e1117;
+        }
+        section[data-testid="stSidebar"] {
+            background: #0e1117;
+        }
+    }
 
     /* ==========================================================
        Optimasi tampilan Mobile
@@ -483,7 +526,10 @@ def create_confidence_chart(results):
         yaxis_title="Confidence (%)",
         yaxis=dict(range=[0, 100]),
         height=400,
-        template="plotly_white"
+        template="plotly_white",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="var(--text-color, #262626)")
     )
 
     return fig
@@ -503,7 +549,7 @@ def add_to_history(image_data, predicted_class, confidence, results, source_labe
 
 def run_prediction_flow(model, image, source_label):
     """Jalankan alur analisis untuk sebuah gambar dan tampilkan hasilnya"""
-    if st.button(f"🔍 Analisis Gambar ({source_label})", type="primary", key=f"analisis_{source_label}"):
+    if st.button(f"🔍 Analisis Gambar", type="primary", key=f"analisis_{source_label}"):
         with st.spinner("Menganalisis gambar..."):
             predicted_class, results = predict_garbage_class(model, image)
 
